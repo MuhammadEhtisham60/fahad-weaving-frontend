@@ -3,6 +3,6 @@
   publish = "dist/client"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   NITRO_PRESET = "netlify"
   VITE_API_URL = "https://fahad-weaving-backend-lake.vercel.app/api/v1"
