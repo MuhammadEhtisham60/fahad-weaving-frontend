@@ -10,39 +10,39 @@
 
 import { Route as rootRouteImport } from './container/__root'
 import { Route as IndexRouteImport } from './container/index'
-import { Route as UserManagementIndexRouteImport } from './container/user-management/index'
-import { Route as SettingsIndexRouteImport } from './container/settings/index'
-import { Route as SaleIndexRouteImport } from './container/sale/index'
-import { Route as ReportsIndexRouteImport } from './container/reports/index'
-import { Route as PurchaseIndexRouteImport } from './container/purchase/index'
-import { Route as InventoryIndexRouteImport } from './container/inventory/index'
-import { Route as DashboardIndexRouteImport } from './container/dashboard/index'
-import { Route as DailyLedgerIndexRouteImport } from './container/daily-ledger/index'
-import { Route as AuthIndexRouteImport } from './container/auth/index'
 import { Route as ActivityLogIndexRouteImport } from './container/activity-log/index'
-import { Route as UserManagementActivityRouteImport } from './container/user-management/activity'
-import { Route as SaleCustomerRouteImport } from './container/sale/customer'
-import { Route as PurchaseSupplierRouteImport } from './container/purchase/supplier'
-import { Route as HrPayrollRouteImport } from './container/hr/payroll'
-import { Route as HrMarkAttendanceRouteImport } from './container/hr/mark-attendance'
-import { Route as HrEmployeesRouteImport } from './container/hr/employees'
-import { Route as HrEmployeeSalaryRouteImport } from './container/hr/employee-salary'
-import { Route as HrAttendanceRouteImport } from './container/hr/attendance'
-import { Route as AuthSignupRouteImport } from './container/auth/signup'
+import { Route as AuthIndexRouteImport } from './container/auth/index'
 import { Route as AuthLoginRouteImport } from './container/auth/login'
-import { Route as UserManagementUsersIndexRouteImport } from './container/user-management/users.index'
-import { Route as UserManagementRolesIndexRouteImport } from './container/user-management/roles.index'
-import { Route as ProductionSizingIndexRouteImport } from './container/production/sizing/index'
-import { Route as ProductionRawManufacturingIndexRouteImport } from './container/production/raw-manufacturing/index'
-import { Route as ProductionLoomIndexRouteImport } from './container/production/loom/index'
-import { Route as ProductionBeamIndexRouteImport } from './container/production/beam/index'
+import { Route as AuthSignupRouteImport } from './container/auth/signup'
+import { Route as DailyLedgerIndexRouteImport } from './container/daily-ledger/index'
+import { Route as DashboardIndexRouteImport } from './container/dashboard/index'
+import { Route as HrAttendanceRouteImport } from './container/hr/attendance'
+import { Route as HrEmployeeSalaryRouteImport } from './container/hr/employee-salary'
+import { Route as HrEmployeesRouteImport } from './container/hr/employees'
+import { Route as HrMarkAttendanceRouteImport } from './container/hr/mark-attendance'
+import { Route as HrPayrollRouteImport } from './container/hr/payroll'
+import { Route as InventoryIndexRouteImport } from './container/inventory/index'
+import { Route as PurchaseIndexRouteImport } from './container/purchase/index'
+import { Route as PurchaseSupplierRouteImport } from './container/purchase/supplier'
+import { Route as ReportsIndexRouteImport } from './container/reports/index'
+import { Route as SaleIndexRouteImport } from './container/sale/index'
+import { Route as SaleCustomerRouteImport } from './container/sale/customer'
+import { Route as SettingsIndexRouteImport } from './container/settings/index'
+import { Route as UserManagementIndexRouteImport } from './container/user-management/index'
+import { Route as UserManagementActivityRouteImport } from './container/user-management/activity'
 import { Route as HrEmployeesIndexRouteImport } from './container/hr/employees.index'
-import { Route as UserManagementUsersAddRouteImport } from './container/user-management/users.add'
-import { Route as UserManagementUsersUserIdRouteImport } from './container/user-management/users.$userId'
-import { Route as UserManagementRolesAddRouteImport } from './container/user-management/roles.add'
-import { Route as UserManagementRolesRoleIdRouteImport } from './container/user-management/roles.$roleId'
-import { Route as HrEmployeesAddRouteImport } from './container/hr/employees.add'
 import { Route as HrEmployeesEmployeeIdRouteImport } from './container/hr/employees.$employeeId'
+import { Route as HrEmployeesAddRouteImport } from './container/hr/employees.add'
+import { Route as ProductionBeamIndexRouteImport } from './container/production/beam/index'
+import { Route as ProductionLoomIndexRouteImport } from './container/production/loom/index'
+import { Route as ProductionRawManufacturingIndexRouteImport } from './container/production/raw-manufacturing/index'
+import { Route as ProductionSizingIndexRouteImport } from './container/production/sizing/index'
+import { Route as UserManagementRolesIndexRouteImport } from './container/user-management/roles.index'
+import { Route as UserManagementRolesRoleIdRouteImport } from './container/user-management/roles.$roleId'
+import { Route as UserManagementRolesAddRouteImport } from './container/user-management/roles.add'
+import { Route as UserManagementUsersIndexRouteImport } from './container/user-management/users.index'
+import { Route as UserManagementUsersUserIdRouteImport } from './container/user-management/users.$userId'
+import { Route as UserManagementUsersAddRouteImport } from './container/user-management/users.add'
 import { Route as UserManagementUsersUserIdIndexRouteImport } from './container/user-management/users.$userId.index'
 import { Route as UserManagementUsersUserIdEditRouteImport } from './container/user-management/users.$userId.edit'
 
@@ -51,44 +51,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserManagementIndexRoute = UserManagementIndexRouteImport.update({
-  id: '/user-management/',
-  path: '/user-management/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsIndexRoute = SettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SaleIndexRoute = SaleIndexRouteImport.update({
-  id: '/sale/',
-  path: '/sale/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReportsIndexRoute = ReportsIndexRouteImport.update({
-  id: '/reports/',
-  path: '/reports/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PurchaseIndexRoute = PurchaseIndexRouteImport.update({
-  id: '/purchase/',
-  path: '/purchase/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InventoryIndexRoute = InventoryIndexRouteImport.update({
-  id: '/inventory/',
-  path: '/inventory/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DailyLedgerIndexRoute = DailyLedgerIndexRouteImport.update({
-  id: '/daily-ledger/',
-  path: '/daily-ledger/',
+const ActivityLogIndexRoute = ActivityLogIndexRouteImport.update({
+  id: '/activity-log/',
+  path: '/activity-log/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
@@ -96,49 +61,9 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/auth/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActivityLogIndexRoute = ActivityLogIndexRouteImport.update({
-  id: '/activity-log/',
-  path: '/activity-log/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UserManagementActivityRoute = UserManagementActivityRouteImport.update({
-  id: '/user-management/activity',
-  path: '/user-management/activity',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SaleCustomerRoute = SaleCustomerRouteImport.update({
-  id: '/sale/customer',
-  path: '/sale/customer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PurchaseSupplierRoute = PurchaseSupplierRouteImport.update({
-  id: '/purchase/supplier',
-  path: '/purchase/supplier',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrPayrollRoute = HrPayrollRouteImport.update({
-  id: '/hr/payroll',
-  path: '/hr/payroll',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrMarkAttendanceRoute = HrMarkAttendanceRouteImport.update({
-  id: '/hr/mark-attendance',
-  path: '/hr/mark-attendance',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrEmployeesRoute = HrEmployeesRouteImport.update({
-  id: '/hr/employees',
-  path: '/hr/employees',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrEmployeeSalaryRoute = HrEmployeeSalaryRouteImport.update({
-  id: '/hr/employee-salary',
-  path: '/hr/employee-salary',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrAttendanceRoute = HrAttendanceRouteImport.update({
-  id: '/hr/attendance',
-  path: '/hr/attendance',
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
@@ -146,26 +71,109 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/auth/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
+const DailyLedgerIndexRoute = DailyLedgerIndexRouteImport.update({
+  id: '/daily-ledger/',
+  path: '/daily-ledger/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserManagementUsersIndexRoute =
-  UserManagementUsersIndexRouteImport.update({
-    id: '/user-management/users/',
-    path: '/user-management/users/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const UserManagementRolesIndexRoute =
-  UserManagementRolesIndexRouteImport.update({
-    id: '/user-management/roles/',
-    path: '/user-management/roles/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ProductionSizingIndexRoute = ProductionSizingIndexRouteImport.update({
-  id: '/production/sizing/',
-  path: '/production/sizing/',
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrAttendanceRoute = HrAttendanceRouteImport.update({
+  id: '/hr/attendance',
+  path: '/hr/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrEmployeeSalaryRoute = HrEmployeeSalaryRouteImport.update({
+  id: '/hr/employee-salary',
+  path: '/hr/employee-salary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrEmployeesRoute = HrEmployeesRouteImport.update({
+  id: '/hr/employees',
+  path: '/hr/employees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrMarkAttendanceRoute = HrMarkAttendanceRouteImport.update({
+  id: '/hr/mark-attendance',
+  path: '/hr/mark-attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrPayrollRoute = HrPayrollRouteImport.update({
+  id: '/hr/payroll',
+  path: '/hr/payroll',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryIndexRoute = InventoryIndexRouteImport.update({
+  id: '/inventory/',
+  path: '/inventory/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchaseIndexRoute = PurchaseIndexRouteImport.update({
+  id: '/purchase/',
+  path: '/purchase/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchaseSupplierRoute = PurchaseSupplierRouteImport.update({
+  id: '/purchase/supplier',
+  path: '/purchase/supplier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsIndexRoute = ReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SaleIndexRoute = SaleIndexRouteImport.update({
+  id: '/sale/',
+  path: '/sale/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SaleCustomerRoute = SaleCustomerRouteImport.update({
+  id: '/sale/customer',
+  path: '/sale/customer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserManagementIndexRoute = UserManagementIndexRouteImport.update({
+  id: '/user-management/',
+  path: '/user-management/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserManagementActivityRoute = UserManagementActivityRouteImport.update({
+  id: '/user-management/activity',
+  path: '/user-management/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HrEmployeesIndexRoute = HrEmployeesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HrEmployeesRoute,
+} as any)
+const HrEmployeesEmployeeIdRoute = HrEmployeesEmployeeIdRouteImport.update({
+  id: '/$employeeId',
+  path: '/$employeeId',
+  getParentRoute: () => HrEmployeesRoute,
+} as any)
+const HrEmployeesAddRoute = HrEmployeesAddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => HrEmployeesRoute,
+} as any)
+const ProductionBeamIndexRoute = ProductionBeamIndexRouteImport.update({
+  id: '/production/beam/',
+  path: '/production/beam/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductionLoomIndexRoute = ProductionLoomIndexRouteImport.update({
+  id: '/production/loom/',
+  path: '/production/loom/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductionRawManufacturingIndexRoute =
@@ -174,30 +182,21 @@ const ProductionRawManufacturingIndexRoute =
     path: '/production/raw-manufacturing/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ProductionLoomIndexRoute = ProductionLoomIndexRouteImport.update({
-  id: '/production/loom/',
-  path: '/production/loom/',
+const ProductionSizingIndexRoute = ProductionSizingIndexRouteImport.update({
+  id: '/production/sizing/',
+  path: '/production/sizing/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductionBeamIndexRoute = ProductionBeamIndexRouteImport.update({
-  id: '/production/beam/',
-  path: '/production/beam/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HrEmployeesIndexRoute = HrEmployeesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HrEmployeesRoute,
-} as any)
-const UserManagementUsersAddRoute = UserManagementUsersAddRouteImport.update({
-  id: '/user-management/users/add',
-  path: '/user-management/users/add',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UserManagementUsersUserIdRoute =
-  UserManagementUsersUserIdRouteImport.update({
-    id: '/user-management/users/$userId',
-    path: '/user-management/users/$userId',
+const UserManagementRolesIndexRoute =
+  UserManagementRolesIndexRouteImport.update({
+    id: '/user-management/roles/',
+    path: '/user-management/roles/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const UserManagementRolesRoleIdRoute =
+  UserManagementRolesRoleIdRouteImport.update({
+    id: '/user-management/roles/$roleId',
+    path: '/user-management/roles/$roleId',
     getParentRoute: () => rootRouteImport,
   } as any)
 const UserManagementRolesAddRoute = UserManagementRolesAddRouteImport.update({
@@ -205,21 +204,22 @@ const UserManagementRolesAddRoute = UserManagementRolesAddRouteImport.update({
   path: '/user-management/roles/add',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserManagementRolesRoleIdRoute =
-  UserManagementRolesRoleIdRouteImport.update({
-    id: '/user-management/roles/$roleId',
-    path: '/user-management/roles/$roleId',
+const UserManagementUsersIndexRoute =
+  UserManagementUsersIndexRouteImport.update({
+    id: '/user-management/users/',
+    path: '/user-management/users/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const HrEmployeesAddRoute = HrEmployeesAddRouteImport.update({
-  id: '/add',
-  path: '/add',
-  getParentRoute: () => HrEmployeesRoute,
-} as any)
-const HrEmployeesEmployeeIdRoute = HrEmployeesEmployeeIdRouteImport.update({
-  id: '/$employeeId',
-  path: '/$employeeId',
-  getParentRoute: () => HrEmployeesRoute,
+const UserManagementUsersUserIdRoute =
+  UserManagementUsersUserIdRouteImport.update({
+    id: '/user-management/users/$userId',
+    path: '/user-management/users/$userId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const UserManagementUsersAddRoute = UserManagementUsersAddRouteImport.update({
+  id: '/user-management/users/add',
+  path: '/user-management/users/add',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const UserManagementUsersUserIdIndexRoute =
   UserManagementUsersUserIdIndexRouteImport.update({
@@ -505,60 +505,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user-management/': {
-      id: '/user-management/'
-      path: '/user-management'
-      fullPath: '/user-management/'
-      preLoaderRoute: typeof UserManagementIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/': {
-      id: '/settings/'
-      path: '/settings'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof SettingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sale/': {
-      id: '/sale/'
-      path: '/sale'
-      fullPath: '/sale/'
-      preLoaderRoute: typeof SaleIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reports/': {
-      id: '/reports/'
-      path: '/reports'
-      fullPath: '/reports/'
-      preLoaderRoute: typeof ReportsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/purchase/': {
-      id: '/purchase/'
-      path: '/purchase'
-      fullPath: '/purchase/'
-      preLoaderRoute: typeof PurchaseIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/inventory/': {
-      id: '/inventory/'
-      path: '/inventory'
-      fullPath: '/inventory/'
-      preLoaderRoute: typeof InventoryIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/daily-ledger/': {
-      id: '/daily-ledger/'
-      path: '/daily-ledger'
-      fullPath: '/daily-ledger/'
-      preLoaderRoute: typeof DailyLedgerIndexRouteImport
+    '/activity-log/': {
+      id: '/activity-log/'
+      path: '/activity-log'
+      fullPath: '/activity-log/'
+      preLoaderRoute: typeof ActivityLogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/': {
@@ -568,67 +519,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/activity-log/': {
-      id: '/activity-log/'
-      path: '/activity-log'
-      fullPath: '/activity-log/'
-      preLoaderRoute: typeof ActivityLogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user-management/activity': {
-      id: '/user-management/activity'
-      path: '/user-management/activity'
-      fullPath: '/user-management/activity'
-      preLoaderRoute: typeof UserManagementActivityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sale/customer': {
-      id: '/sale/customer'
-      path: '/sale/customer'
-      fullPath: '/sale/customer'
-      preLoaderRoute: typeof SaleCustomerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/purchase/supplier': {
-      id: '/purchase/supplier'
-      path: '/purchase/supplier'
-      fullPath: '/purchase/supplier'
-      preLoaderRoute: typeof PurchaseSupplierRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr/payroll': {
-      id: '/hr/payroll'
-      path: '/hr/payroll'
-      fullPath: '/hr/payroll'
-      preLoaderRoute: typeof HrPayrollRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr/mark-attendance': {
-      id: '/hr/mark-attendance'
-      path: '/hr/mark-attendance'
-      fullPath: '/hr/mark-attendance'
-      preLoaderRoute: typeof HrMarkAttendanceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr/employees': {
-      id: '/hr/employees'
-      path: '/hr/employees'
-      fullPath: '/hr/employees'
-      preLoaderRoute: typeof HrEmployeesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr/employee-salary': {
-      id: '/hr/employee-salary'
-      path: '/hr/employee-salary'
-      fullPath: '/hr/employee-salary'
-      preLoaderRoute: typeof HrEmployeeSalaryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hr/attendance': {
-      id: '/hr/attendance'
-      path: '/hr/attendance'
-      fullPath: '/hr/attendance'
-      preLoaderRoute: typeof HrAttendanceRouteImport
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/signup': {
@@ -638,53 +533,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/daily-ledger/': {
+      id: '/daily-ledger/'
+      path: '/daily-ledger'
+      fullPath: '/daily-ledger/'
+      preLoaderRoute: typeof DailyLedgerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user-management/users/': {
-      id: '/user-management/users/'
-      path: '/user-management/users'
-      fullPath: '/user-management/users/'
-      preLoaderRoute: typeof UserManagementUsersIndexRouteImport
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user-management/roles/': {
-      id: '/user-management/roles/'
-      path: '/user-management/roles'
-      fullPath: '/user-management/roles/'
-      preLoaderRoute: typeof UserManagementRolesIndexRouteImport
+    '/hr/attendance': {
+      id: '/hr/attendance'
+      path: '/hr/attendance'
+      fullPath: '/hr/attendance'
+      preLoaderRoute: typeof HrAttendanceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/production/sizing/': {
-      id: '/production/sizing/'
-      path: '/production/sizing'
-      fullPath: '/production/sizing/'
-      preLoaderRoute: typeof ProductionSizingIndexRouteImport
+    '/hr/employee-salary': {
+      id: '/hr/employee-salary'
+      path: '/hr/employee-salary'
+      fullPath: '/hr/employee-salary'
+      preLoaderRoute: typeof HrEmployeeSalaryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/production/raw-manufacturing/': {
-      id: '/production/raw-manufacturing/'
-      path: '/production/raw-manufacturing'
-      fullPath: '/production/raw-manufacturing/'
-      preLoaderRoute: typeof ProductionRawManufacturingIndexRouteImport
+    '/hr/employees': {
+      id: '/hr/employees'
+      path: '/hr/employees'
+      fullPath: '/hr/employees'
+      preLoaderRoute: typeof HrEmployeesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/production/loom/': {
-      id: '/production/loom/'
-      path: '/production/loom'
-      fullPath: '/production/loom/'
-      preLoaderRoute: typeof ProductionLoomIndexRouteImport
+    '/hr/mark-attendance': {
+      id: '/hr/mark-attendance'
+      path: '/hr/mark-attendance'
+      fullPath: '/hr/mark-attendance'
+      preLoaderRoute: typeof HrMarkAttendanceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/production/beam/': {
-      id: '/production/beam/'
-      path: '/production/beam'
-      fullPath: '/production/beam/'
-      preLoaderRoute: typeof ProductionBeamIndexRouteImport
+    '/hr/payroll': {
+      id: '/hr/payroll'
+      path: '/hr/payroll'
+      fullPath: '/hr/payroll'
+      preLoaderRoute: typeof HrPayrollRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory/': {
+      id: '/inventory/'
+      path: '/inventory'
+      fullPath: '/inventory/'
+      preLoaderRoute: typeof InventoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchase/': {
+      id: '/purchase/'
+      path: '/purchase'
+      fullPath: '/purchase/'
+      preLoaderRoute: typeof PurchaseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchase/supplier': {
+      id: '/purchase/supplier'
+      path: '/purchase/supplier'
+      fullPath: '/purchase/supplier'
+      preLoaderRoute: typeof PurchaseSupplierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/': {
+      id: '/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof ReportsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sale/': {
+      id: '/sale/'
+      path: '/sale'
+      fullPath: '/sale/'
+      preLoaderRoute: typeof SaleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sale/customer': {
+      id: '/sale/customer'
+      path: '/sale/customer'
+      fullPath: '/sale/customer'
+      preLoaderRoute: typeof SaleCustomerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-management/': {
+      id: '/user-management/'
+      path: '/user-management'
+      fullPath: '/user-management/'
+      preLoaderRoute: typeof UserManagementIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-management/activity': {
+      id: '/user-management/activity'
+      path: '/user-management/activity'
+      fullPath: '/user-management/activity'
+      preLoaderRoute: typeof UserManagementActivityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hr/employees/': {
@@ -694,25 +652,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HrEmployeesIndexRouteImport
       parentRoute: typeof HrEmployeesRoute
     }
-    '/user-management/users/add': {
-      id: '/user-management/users/add'
-      path: '/user-management/users/add'
-      fullPath: '/user-management/users/add'
-      preLoaderRoute: typeof UserManagementUsersAddRouteImport
+    '/hr/employees/$employeeId': {
+      id: '/hr/employees/$employeeId'
+      path: '/$employeeId'
+      fullPath: '/hr/employees/$employeeId'
+      preLoaderRoute: typeof HrEmployeesEmployeeIdRouteImport
+      parentRoute: typeof HrEmployeesRoute
+    }
+    '/hr/employees/add': {
+      id: '/hr/employees/add'
+      path: '/add'
+      fullPath: '/hr/employees/add'
+      preLoaderRoute: typeof HrEmployeesAddRouteImport
+      parentRoute: typeof HrEmployeesRoute
+    }
+    '/production/beam/': {
+      id: '/production/beam/'
+      path: '/production/beam'
+      fullPath: '/production/beam/'
+      preLoaderRoute: typeof ProductionBeamIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user-management/users/$userId': {
-      id: '/user-management/users/$userId'
-      path: '/user-management/users/$userId'
-      fullPath: '/user-management/users/$userId'
-      preLoaderRoute: typeof UserManagementUsersUserIdRouteImport
+    '/production/loom/': {
+      id: '/production/loom/'
+      path: '/production/loom'
+      fullPath: '/production/loom/'
+      preLoaderRoute: typeof ProductionLoomIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user-management/roles/add': {
-      id: '/user-management/roles/add'
-      path: '/user-management/roles/add'
-      fullPath: '/user-management/roles/add'
-      preLoaderRoute: typeof UserManagementRolesAddRouteImport
+    '/production/raw-manufacturing/': {
+      id: '/production/raw-manufacturing/'
+      path: '/production/raw-manufacturing'
+      fullPath: '/production/raw-manufacturing/'
+      preLoaderRoute: typeof ProductionRawManufacturingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/production/sizing/': {
+      id: '/production/sizing/'
+      path: '/production/sizing'
+      fullPath: '/production/sizing/'
+      preLoaderRoute: typeof ProductionSizingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-management/roles/': {
+      id: '/user-management/roles/'
+      path: '/user-management/roles'
+      fullPath: '/user-management/roles/'
+      preLoaderRoute: typeof UserManagementRolesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/user-management/roles/$roleId': {
@@ -722,19 +708,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserManagementRolesRoleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hr/employees/add': {
-      id: '/hr/employees/add'
-      path: '/add'
-      fullPath: '/hr/employees/add'
-      preLoaderRoute: typeof HrEmployeesAddRouteImport
-      parentRoute: typeof HrEmployeesRoute
+    '/user-management/roles/add': {
+      id: '/user-management/roles/add'
+      path: '/user-management/roles/add'
+      fullPath: '/user-management/roles/add'
+      preLoaderRoute: typeof UserManagementRolesAddRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/hr/employees/$employeeId': {
-      id: '/hr/employees/$employeeId'
-      path: '/$employeeId'
-      fullPath: '/hr/employees/$employeeId'
-      preLoaderRoute: typeof HrEmployeesEmployeeIdRouteImport
-      parentRoute: typeof HrEmployeesRoute
+    '/user-management/users/': {
+      id: '/user-management/users/'
+      path: '/user-management/users'
+      fullPath: '/user-management/users/'
+      preLoaderRoute: typeof UserManagementUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-management/users/$userId': {
+      id: '/user-management/users/$userId'
+      path: '/user-management/users/$userId'
+      fullPath: '/user-management/users/$userId'
+      preLoaderRoute: typeof UserManagementUsersUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-management/users/add': {
+      id: '/user-management/users/add'
+      path: '/user-management/users/add'
+      fullPath: '/user-management/users/add'
+      preLoaderRoute: typeof UserManagementUsersAddRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/user-management/users/$userId/': {
       id: '/user-management/users/$userId/'

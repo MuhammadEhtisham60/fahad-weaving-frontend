@@ -15,6 +15,7 @@ dist-ssr
 .tanstack/**
 .nitro
 .vercel
+.netlify
 *.local
 .env
 .env.*
