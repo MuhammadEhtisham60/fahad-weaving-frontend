@@ -5,3 +5,4 @@
 [build.environment]
   NODE_VERSION = "20"
   NITRO_PRESET = "netlify"
+  VITE_API_URL = "https://fahad-weaving-backend-lake.vercel.app/api/v1"

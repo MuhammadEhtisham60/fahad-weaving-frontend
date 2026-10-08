@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { toast } from "sonner";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://fahad-weaving-backend-lake.vercel.app/api/v1";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
