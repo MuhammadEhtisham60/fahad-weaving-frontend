@@ -35,17 +35,17 @@ export function LedgerAnalytics({ summary, isLoading }) {
   const totalOutgoing = parseFloat(summary?.total_outgoing || 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Category Breakdown Grids */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Income Categories */}
-        <Card className="border-border shadow-card">
-          <div className="flex items-center justify-between mb-4">
+        <Card className="border-border shadow-card min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="flex items-center gap-2 font-bold text-foreground">
-              <div className="h-8 w-8 rounded-lg bg-success/15 text-success flex items-center justify-center">
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-success/15 text-success flex items-center justify-center shrink-0">
                 <ArrowDownLeft className="h-4 w-4" />
               </div>
-              <span>Income by Category</span>
+              <span className="text-sm sm:text-base">Income by Category</span>
             </div>
             <span className="text-xs font-semibold text-success">
               Total: {pkr(totalIncoming)}
@@ -65,11 +65,11 @@ export function LedgerAnalytics({ summary, isLoading }) {
 
                 return (
                   <div key={c.category} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-semibold text-foreground">
+                    <div className="flex items-center justify-between text-xs gap-2">
+                      <span className="font-semibold text-foreground truncate">
                         {c.category}
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-muted-foreground whitespace-nowrap">
                         {pkr(amt)} ({pct}%) • {c.count} tx
                       </span>
                     </div>
@@ -87,13 +87,13 @@ export function LedgerAnalytics({ summary, isLoading }) {
         </Card>
 
         {/* Expense Categories */}
-        <Card className="border-border shadow-card">
-          <div className="flex items-center justify-between mb-4">
+        <Card className="border-border shadow-card min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="flex items-center gap-2 font-bold text-foreground">
-              <div className="h-8 w-8 rounded-lg bg-warning/15 text-warning-foreground flex items-center justify-center">
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-warning/15 text-warning-foreground flex items-center justify-center shrink-0">
                 <ArrowUpRight className="h-4 w-4" />
               </div>
-              <span>Expenses by Category</span>
+              <span className="text-sm sm:text-base">Expenses by Category</span>
             </div>
             <span className="text-xs font-semibold text-warning-foreground">
               Total: {pkr(totalOutgoing)}
@@ -113,11 +113,11 @@ export function LedgerAnalytics({ summary, isLoading }) {
 
                 return (
                   <div key={c.category} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-semibold text-foreground">
+                    <div className="flex items-center justify-between text-xs gap-2">
+                      <span className="font-semibold text-foreground truncate">
                         {c.category}
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-muted-foreground whitespace-nowrap">
                         {pkr(amt)} ({pct}%) • {c.count} tx
                       </span>
                     </div>
@@ -136,13 +136,13 @@ export function LedgerAnalytics({ summary, isLoading }) {
       </div>
 
       {/* Payment Methods Breakdown */}
-      <Card className="border-border shadow-card">
+      <Card className="border-border shadow-card min-w-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2 font-bold text-foreground">
-            <div className="h-8 w-8 rounded-lg bg-primary/15 text-primary flex items-center justify-center">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-primary/15 text-primary flex items-center justify-center shrink-0">
               <CreditCard className="h-4 w-4" />
             </div>
-            <span>Payment Method Distribution</span>
+            <span className="text-sm sm:text-base">Payment Method Distribution</span>
           </div>
         </div>
 
@@ -151,21 +151,21 @@ export function LedgerAnalytics({ summary, isLoading }) {
             No payment method records available.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {paymentMethods.map((m) => {
               const amt = parseFloat(m.total_amount || 0);
               return (
                 <div
                   key={m.payment_method}
-                  className="p-4 rounded-xl bg-muted/40 border border-border flex flex-col justify-between"
+                  className="p-3.5 sm:p-4 rounded-xl bg-muted/40 border border-border flex flex-col justify-between min-w-0"
                 >
-                  <div className="text-xs font-semibold uppercase text-muted-foreground">
+                  <div className="text-[11px] sm:text-xs font-semibold uppercase text-muted-foreground truncate">
                     {m.payment_method}
                   </div>
-                  <div className="mt-2 text-xl font-bold text-foreground">
+                  <div className="mt-1.5 sm:mt-2 text-lg sm:text-xl font-bold text-foreground truncate">
                     {pkr(amt)}
                   </div>
-                  <div className="mt-1 text-xs text-muted-foreground">
+                  <div className="mt-1 text-[11px] sm:text-xs text-muted-foreground truncate">
                     {m.count} transaction{m.count === 1 ? "" : "s"}
                   </div>
                 </div>

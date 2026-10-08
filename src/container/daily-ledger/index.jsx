@@ -347,33 +347,34 @@ function DailyLedgerPage() {
           "Real-time cash-flow tracking, running ledger balances, and expense management"
         )}
         actions={
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleOpenEditOpeningBalance(null)}
+              className="flex-1 sm:flex-initial justify-center text-xs sm:text-sm"
             >
-              <Wallet className="h-4 w-4 text-primary" />{" "}
-              {t("dailyLedger.setOpeningBalance", "Set Opening Balance")}
+              <Wallet className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />{" "}
+              <span className="truncate">{t("dailyLedger.setOpeningBalance", "Set Opening Balance")}</span>
             </Button>
-            <Button
-              variant="primary"
+            {/* <Button
+              variant="success"
               size="sm"
               onClick={handleOpenRecordIncoming}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20"
+              className="hidden sm:inline-flex flex-1 sm:flex-initial justify-center text-xs sm:text-sm"
             >
-              <ArrowDownLeft className="h-4 w-4" />{" "}
-              {t("dailyLedger.recordIncoming", "+ Record Income")}
+              <ArrowDownLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />{" "}
+              <span className="truncate">{t("dailyLedger.recordIncoming", "+ Record Income")}</span>
             </Button>
             <Button
-              variant="primary"
+              variant="danger"
               size="sm"
               onClick={handleOpenRecordOutgoing}
-              className="bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/20"
+              className="hidden sm:inline-flex flex-1 sm:flex-initial justify-center text-xs sm:text-sm"
             >
-              <ArrowUpRight className="h-4 w-4" />{" "}
-              {t("dailyLedger.recordOutgoing", "- Record Expense")}
-            </Button>
+              <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />{" "}
+              <span className="truncate">{t("dailyLedger.recordOutgoing", "- Record Expense")}</span>
+            </Button> */}
           </div>
         }
       />
@@ -407,8 +408,8 @@ function DailyLedgerPage() {
       />
 
       {/* Navigation Tabs Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-3">
-        <div className="flex items-center gap-2 overflow-x-auto">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4 border-b border-border pb-3">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 lg:pb-0 max-w-full">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -416,17 +417,17 @@ function DailyLedgerPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 ${
                   isActive
                     ? "bg-gradient-primary text-primary-foreground shadow-glow"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
                 }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 <span>{tab.label}</span>
                 {tab.badge !== undefined && tab.badge !== null && (
                   <span
-                    className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
+                    className={`ml-1 px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold ${
                       isActive
                         ? "bg-white/20 text-white"
                         : "bg-muted text-muted-foreground"
@@ -441,12 +442,12 @@ function DailyLedgerPage() {
         </div>
 
         {/* Global Preset Filter for Analytics/Summary */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap w-full lg:w-auto">
           {summaryPreset === "custom" && summaryDateFrom && summaryDateTo && (
             <button
               type="button"
               onClick={() => setIsCustomDateModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 text-xs font-semibold border border-primary/25 transition-all shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 text-xs font-semibold border border-primary/25 transition-all shadow-sm cursor-pointer shrink-0"
               title="Click to edit custom date range"
             >
               <Calendar className="h-3.5 w-3.5" />
@@ -457,16 +458,16 @@ function DailyLedgerPage() {
             </button>
           )}
 
-          <div className="flex items-center gap-3 pl-3 pr-1 py-1 rounded-2xl bg-card border border-border shadow-sm">
-            <div className="flex items-center gap-2 shrink-0">
-              <div className="h-8 w-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                <CalendarRange className="h-4 w-4" />
+          <div className="flex items-center gap-2 sm:gap-3 pl-2.5 sm:pl-3 pr-1 py-1 rounded-2xl bg-card border border-border shadow-sm w-full sm:w-auto">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                <CalendarRange className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </div>
-              <span className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-bold text-muted-foreground">
                 Timeline
               </span>
             </div>
-            <div className="w-44">
+            <div className="flex-1 sm:w-44">
               <SelectField
                 name="summaryPreset"
                 size="sm"

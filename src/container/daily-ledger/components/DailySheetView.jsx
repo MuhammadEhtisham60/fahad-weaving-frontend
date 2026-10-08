@@ -19,6 +19,9 @@ import {
   AlertCircle,
   HelpCircle,
   Wallet,
+  MoreVertical,
+  Download,
+  FileText,
 } from "lucide-react";
 import { Button, StatusBadge, Card, pkr, fmt } from "../../../components/ui-kit.jsx";
 import { toast } from "sonner";
@@ -28,7 +31,13 @@ import {
   downloadDailySheetPdf,
   printDailySheet,
 } from "../utils/ledgerExport.js";
-import { Download, FileText } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../components/ui/dropdown-menu";
 
 export const formatTransactionTime = (tx) => {
   if (tx?.created_at) {
@@ -70,20 +79,20 @@ export function DailySheetView({
   const ledgerId = ledgerData?.ledger_id || rawLedger?.id;
   const ledger = rawLedger
     ? {
-        id: ledgerId,
-        ledger_date:
-          ledgerData?.ledger_date || rawLedger?.ledger_date || selectedDate,
-        opening_balance:
-          ledgerData?.opening_balance ?? rawLedger?.opening_balance ?? "0.00",
-        total_incoming:
-          ledgerData?.total_incoming ?? rawLedger?.total_incoming ?? "0.00",
-        total_outgoing:
-          ledgerData?.total_outgoing ?? rawLedger?.total_outgoing ?? "0.00",
-        closing_balance:
-          ledgerData?.closing_balance ?? rawLedger?.closing_balance ?? "0.00",
-        status: ledgerData?.status || rawLedger?.status || "Open",
-        notes: ledgerData?.notes || rawLedger?.notes || "",
-      }
+      id: ledgerId,
+      ledger_date:
+        ledgerData?.ledger_date || rawLedger?.ledger_date || selectedDate,
+      opening_balance:
+        ledgerData?.opening_balance ?? rawLedger?.opening_balance ?? "0.00",
+      total_incoming:
+        ledgerData?.total_incoming ?? rawLedger?.total_incoming ?? "0.00",
+      total_outgoing:
+        ledgerData?.total_outgoing ?? rawLedger?.total_outgoing ?? "0.00",
+      closing_balance:
+        ledgerData?.closing_balance ?? rawLedger?.closing_balance ?? "0.00",
+      status: ledgerData?.status || rawLedger?.status || "Open",
+      notes: ledgerData?.notes || rawLedger?.notes || "",
+    }
     : null;
 
   const transactions = ledgerData?.transactions || rawLedger?.transactions || [];
@@ -187,114 +196,102 @@ export function DailySheetView({
   return (
     <div className="space-y-6">
       {/* Date Switcher & Day Controls Bar */}
-      <Card padded={false} className="p-4 bg-card/80 backdrop-blur-sm border-border/80">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <Card padded={false} className="p-2 sm:p-3 md:p-4 bg-card/80 backdrop-blur-sm border-border/80">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-4 flex-nowrap">
           {/* Left: Date Navigator */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0 min-w-0">
             <button
               onClick={handlePrevDay}
-              className="p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors"
+              className="p-1.5 sm:p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors shrink-0"
               title="Previous Day"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
-            <div className="relative flex items-center">
+
+            {/* Calendar Icon Trigger */}
+            <label
+              className="relative p-1.5 sm:p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors shrink-0 flex items-center justify-center cursor-pointer"
+              title="Click to select date"
+            >
+              <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
               <input
                 type="date"
                 value={selectedDate}
                 onChange={(e) => onDateChange(e.target.value)}
-                className="pl-9 pr-3 py-2 bg-muted/50 border border-border rounded-lg text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
               />
-              <Calendar className="h-4 w-4 text-muted-foreground absolute left-3 pointer-events-none" />
-            </div>
+            </label>
+
             <button
               onClick={handleNextDay}
-              className="p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors"
+              className="p-1.5 sm:p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors shrink-0"
               title="Next Day"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
+
             {!isToday && (
-              <Button variant="outline" size="sm" onClick={handleToday}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleToday}
+                className="text-xs h-7 sm:h-8 px-2 sm:px-2.5 hidden md:inline-flex"
+              >
                 Today
               </Button>
             )}
-            <span className="text-xs font-semibold text-muted-foreground px-2">
-              {new Date(selectedDate).toLocaleDateString(undefined, {
-                weekday: "long",
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
+
+            <label className="relative cursor-pointer select-none">
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => onDateChange(e.target.value)}
+                className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+              />
+              <span className="text-[11px] sm:text-xs font-semibold text-muted-foreground hover:text-foreground px-0.5 sm:px-1.5 truncate inline-block transition-colors">
+                {new Date(selectedDate).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
+            </label>
           </div>
 
           {/* Right: Quick Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleRecalculate}
-              disabled={isRecalculating || !ledger}
-              title="Recalculate Running Balances"
-            >
-              <RefreshCw
-                className={`h-3.5 w-3.5 ${
-                  isRecalculating ? "animate-spin text-primary" : ""
-                }`}
-              />
-              Recalculate
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExportCsv}
-              disabled={transactions.length === 0}
-              title="Download Daily Cash Sheet as CSV"
-            >
-              <Download className="h-3.5 w-3.5 text-emerald-600" /> CSV
-            </Button>
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={handleDownloadPdf}
               disabled={transactions.length === 0}
               title="Download Daily Cash Sheet as PDF"
+              className="text-xs py-1.5 px-2 sm:px-2.5 h-7 sm:h-8"
             >
-              <FileText className="h-3.5 w-3.5 text-rose-600" /> PDF
+              <FileText className="h-3.5 w-3.5 text-rose-600" />{" "}
+              <span className="hidden min-[380px]:inline">PDF</span>
             </Button>
             <Button
-              variant="outline"
-              size="sm"
-              onClick={handlePrint}
-              disabled={transactions.length === 0}
-              title="Print Daily Cash Sheet"
-            >
-              <Printer className="h-3.5 w-3.5 text-primary" /> Print
-            </Button>
-            {/* <Button
-              variant="outline"
-              size="sm"
-              onClick={() => onOpenEditLedger(ledger)}
-            >
-              <Wallet className="h-3.5 w-3.5 text-primary" />
-              Set / Edit Opening Balance
-            </Button> */}
-            <Button
-              variant="primary"
+              variant="success"
               size="sm"
               onClick={onOpenRecordIncoming}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20"
+              title="Record Income (+)"
+              className="text-xs py-1.5 px-2 sm:px-3 justify-center font-semibold h-7 sm:h-8"
             >
-              <ArrowDownLeft className="h-4 w-4" /> + Income / Sale
+              <ArrowDownLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="hidden sm:inline truncate">+ Income</span>
+              <span className="sm:hidden font-black text-sm leading-none">+</span>
             </Button>
             <Button
-              variant="primary"
+              variant="danger"
               size="sm"
               onClick={onOpenRecordOutgoing}
-              className="bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/20"
+              title="Record Expense (-)"
+              className="text-xs py-1.5 px-2 sm:px-3 justify-center font-semibold h-7 sm:h-8"
             >
-              <ArrowUpRight className="h-4 w-4" /> - Expense / Purchase
+              <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="hidden sm:inline truncate">- Expense</span>
+              <span className="sm:hidden font-black text-sm leading-none">-</span>
             </Button>
           </div>
         </div>
@@ -378,23 +375,23 @@ export function DailySheetView({
           <table className="w-full text-left border-collapse text-xs md:text-sm">
             <thead>
               <tr className="bg-muted/50 border-b border-border text-muted-foreground font-semibold uppercase text-[11px] tracking-wider">
-                <th className="py-3 px-3 text-center w-12">#</th>
-                <th className="py-3 px-3">Time</th>
-                <th className="py-3 px-3">Type</th>
-                <th className="py-3 px-3">Category</th>
-                <th className="py-3 px-3">Party / Particulars</th>
-                <th className="py-3 px-3">Method</th>
+                <th className="py-3 px-3 text-center w-12 hidden md:table-cell">#</th>
+                <th className="py-3 px-3 hidden md:table-cell">Time</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3">Type</th>
+                <th className="py-3 px-3 hidden md:table-cell">Category</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3">Person</th>
+                <th className="py-3 px-3 hidden md:table-cell">Method</th>
                 {/* <th className="py-3 px-3">Ref #</th> */}
-                <th className="py-3 px-3 text-right">Income (+)</th>
-                <th className="py-3 px-3 text-right">Expense (-)</th>
-                <th className="py-3 px-3 text-right font-bold text-foreground">Running Bal</th>
-                <th className="py-3 px-3 text-center w-24">Actions</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3 text-right">Income (+)</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3 text-right">Expense (-)</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3 text-right font-bold text-foreground">Running Bal</th>
+                <th className="py-2.5 sm:py-3 px-2 sm:px-3 text-center w-12 md:w-24">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
               {isLoading ? (
                 <tr>
-                  <td colSpan={11} className="py-12 text-center text-muted-foreground">
+                  <td colSpan={10} className="py-12 text-center text-muted-foreground">
                     <div className="inline-flex items-center gap-2">
                       <RefreshCw className="h-5 w-5 animate-spin text-primary" />
                       <span>Loading cash sheet entries...</span>
@@ -403,7 +400,7 @@ export function DailySheetView({
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="py-12 text-center text-muted-foreground">
+                  <td colSpan={10} className="py-12 text-center text-muted-foreground">
                     <div className="flex flex-col items-center justify-center gap-2">
                       <FileSpreadsheet className="h-8 w-8 text-muted-foreground/50" />
                       <div className="font-semibold text-foreground">No Transactions Recorded Yet</div>
@@ -412,18 +409,18 @@ export function DailySheetView({
                       </div>
                       <div className="flex items-center gap-3 mt-3">
                         <Button
-                          variant="outline"
+                          variant="success"
                           size="sm"
                           onClick={onOpenRecordIncoming}
                         >
-                          <ArrowDownLeft className="h-3.5 w-3.5 text-success" /> Add Income
+                          <ArrowDownLeft className="h-3.5 w-3.5" /> Add Income
                         </Button>
                         <Button
-                          variant="outline"
+                          variant="danger"
                           size="sm"
                           onClick={onOpenRecordOutgoing}
                         >
-                          <ArrowUpRight className="h-3.5 w-3.5 text-warning" /> Add Expense
+                          <ArrowUpRight className="h-3.5 w-3.5" /> Add Expense
                         </Button>
                       </div>
                     </div>
@@ -441,62 +438,64 @@ export function DailySheetView({
                   return (
                     <tr
                       key={tx.id || idx}
-                      className="hover:bg-muted/30 transition-colors group"
+                      onClick={() => onViewTransaction(tx)}
+                      className="hover:bg-muted/30 transition-colors group cursor-pointer"
                     >
-                      <td className="py-3 px-3 text-center text-xs text-muted-foreground font-mono">
+                      <td className="py-3 px-3 text-center text-xs text-muted-foreground font-mono hidden md:table-cell">
                         {rowNumber}
                       </td>
-                      <td className="py-3 px-3 text-xs text-muted-foreground whitespace-nowrap">
+                      <td className="py-3 px-3 text-xs text-muted-foreground whitespace-nowrap hidden md:table-cell">
                         {formatTransactionTime(tx)}
                       </td>
-                      <td className="py-3 px-3 whitespace-nowrap">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                            isIncoming
+                          className={`inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold ${isIncoming
                               ? "bg-success/15 text-success border border-success/30"
                               : "bg-warning/15 text-warning-foreground border border-warning/40"
-                          }`}
+                            }`}
                         >
                           {isIncoming ? (
-                            <ArrowDownLeft className="h-3 w-3" />
+                            <ArrowDownLeft className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                           ) : (
-                            <ArrowUpRight className="h-3 w-3" />
+                            <ArrowUpRight className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                           )}
-                          {isIncoming ? "Income" : "Expense"}
+                          <span className="hidden sm:inline">{isIncoming ? "Income" : "Expense"}</span>
+                          <span className="sm:hidden">{isIncoming ? "In" : "Out"}</span>
                         </span>
                       </td>
-                      <td className="py-3 px-3 font-semibold text-foreground whitespace-nowrap">
+                      <td className="py-3 px-3 font-semibold text-foreground whitespace-nowrap hidden md:table-cell">
                         {tx.category || "General"}
                       </td>
-                      <td className="py-3 px-3 text-foreground">
-                        <div className="font-medium truncate max-w-[220px]">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 text-foreground">
+                        <div className="font-medium truncate max-w-[110px] sm:max-w-[180px] md:max-w-[220px]">
                           {tx.party_name || tx.partyName || "Counter"}
                         </div>
                         {tx.description && (
-                          <div className="text-xs text-muted-foreground truncate max-w-[260px]">
+                          <div className="text-[11px] sm:text-xs text-muted-foreground truncate max-w-[120px] sm:max-w-[200px] md:max-w-[260px]">
                             {tx.description}
                           </div>
                         )}
                       </td>
-                      <td className="py-3 px-3 text-xs text-muted-foreground whitespace-nowrap">
+                      <td className="py-3 px-3 text-xs text-muted-foreground whitespace-nowrap hidden md:table-cell">
                         {tx.payment_method || tx.paymentMethod || "Cash"}
                       </td>
                       {/* <td className="py-3 px-3 text-xs font-mono text-muted-foreground whitespace-nowrap">
                         {tx.reference_number || "—"}
                       </td> */}
-                      <td className="py-3 px-3 text-right font-semibold text-success whitespace-nowrap">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 text-right font-semibold text-success whitespace-nowrap text-xs sm:text-sm">
                         {isIncoming ? `+${pkr(amt)}` : "—"}
                       </td>
-                      <td className="py-3 px-3 text-right font-semibold text-warning-foreground whitespace-nowrap">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 text-right font-semibold text-warning-foreground whitespace-nowrap text-xs sm:text-sm">
                         {!isIncoming ? `-${pkr(amt)}` : "—"}
                       </td>
-                      <td className="py-3 px-3 text-right font-black text-foreground whitespace-nowrap">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 text-right font-black text-foreground whitespace-nowrap text-xs sm:text-sm">
                         {running !== undefined && running !== null
                           ? pkr(parseFloat(running))
                           : "—"}
                       </td>
-                      <td className="py-3 px-3 text-center">
-                        <div className="flex items-center justify-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                      <td className="py-2.5 sm:py-3 px-2 sm:px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                        {/* Desktop inline actions */}
+                        <div className="hidden md:flex items-center justify-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
                           <button
                             onClick={() => onViewTransaction(tx)}
                             className="p-1 rounded text-muted-foreground hover:text-primary hover:bg-muted"
@@ -519,6 +518,45 @@ export function DailySheetView({
                             <Trash2 className="h-3.5 w-3.5" />
                           </button>
                         </div>
+
+                        {/* Mobile 3-dot dropdown menu */}
+                        <div className="md:hidden flex items-center justify-center">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <button
+                                type="button"
+                                className="p-1.5 rounded-lg border border-border bg-card/60 hover:bg-muted text-foreground hover:text-primary transition-colors focus:outline-none"
+                                title="Options"
+                              >
+                                <MoreVertical className="h-3.5 w-3.5" />
+                              </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-36 bg-popover z-50">
+                              <DropdownMenuItem
+                                onClick={() => onViewTransaction(tx)}
+                                className="cursor-pointer gap-2 text-xs py-2"
+                              >
+                                <Eye className="h-3.5 w-3.5 text-primary" />
+                                <span>View</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => onEditTransaction(tx)}
+                                className="cursor-pointer gap-2 text-xs py-2"
+                              >
+                                <Edit2 className="h-3.5 w-3.5 text-amber-500" />
+                                <span>Edit</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem
+                                onClick={() => onDeleteTransaction(tx)}
+                                className="cursor-pointer gap-2 text-xs py-2 text-destructive focus:text-destructive"
+                              >
+                                <Trash2 className="h-3.5 w-3.5" />
+                                <span>Delete</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -528,20 +566,22 @@ export function DailySheetView({
             {/* Table Footer Summary Row */}
             <tfoot className="bg-muted/60 border-t-2 border-border font-bold">
               <tr>
-                <td colSpan={6} className="py-3.5 px-3 text-right text-xs uppercase tracking-wider text-muted-foreground">
+                <td colSpan={2} className="md:hidden py-3.5 px-2 text-right text-[11px] uppercase tracking-wider text-muted-foreground font-bold">
+                  Total:
+                </td>
+                <td colSpan={6} className="hidden md:table-cell py-3.5 px-3 text-right text-xs uppercase tracking-wider text-muted-foreground">
                   Day Total Summary:
                 </td>
-                <td className="py-3.5 px-3 text-right text-success font-black">
+                <td className="py-3.5 px-2 sm:px-3 text-right text-success font-black whitespace-nowrap">
                   +{pkr(totalIncoming)}
                 </td>
-                <td className="py-3.5 px-3 text-right text-warning-foreground font-black">
+                <td className="py-3.5 px-2 sm:px-3 text-right text-warning-foreground font-black whitespace-nowrap">
                   -{pkr(totalOutgoing)}
                 </td>
-                <td className="py-3.5 px-3 text-right text-foreground font-black text-base">
+                <td className="py-3.5 px-2 sm:px-3 text-right text-foreground font-black text-xs sm:text-base whitespace-nowrap">
                   {pkr(closingBalance)}
                 </td>
-                
-                <td className="py-3.5 px-3" />
+                <td className="py-3.5 px-2 sm:px-3" />
               </tr>
             </tfoot>
           </table>
@@ -606,11 +646,10 @@ export function DailySheetView({
                           )}
                           <button
                             onClick={() => setCurrentPage(pageNumber)}
-                            className={`h-8 w-8 rounded-lg text-xs font-semibold transition-all ${
-                              currentPage === pageNumber
+                            className={`h-8 w-8 rounded-lg text-xs font-semibold transition-all ${currentPage === pageNumber
                                 ? "bg-primary text-primary-foreground shadow-sm"
                                 : "border border-border bg-card text-foreground hover:bg-muted"
-                            }`}
+                              }`}
                           >
                             {pageNumber}
                           </button>

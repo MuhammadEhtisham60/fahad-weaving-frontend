@@ -55,7 +55,7 @@ export function AppShell({ children }) {
           setDark={setDark} 
           onShowAttendance={() => setShowAttendance(true)}
         />
-        <main className="flex-1 px-4 py-2 lg:p-8 max-w-[1600px] w-full mx-auto mt-0">
+        <main className="flex-1 px-3 py-3 sm:px-4 sm:py-4 md:px-6 lg:p-8 max-w-[1600px] w-full mx-auto mt-0">
           {children}
         </main>
       </div>

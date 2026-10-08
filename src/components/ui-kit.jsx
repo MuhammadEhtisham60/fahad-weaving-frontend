@@ -1,11 +1,11 @@
 export function PageHeader({ title, subtitle, actions }) {
   return (
-    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-      <div>
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{title}</h1>
-        {/* {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>} */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+      <div className="min-w-0">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground truncate">{title}</h1>
+        {subtitle && <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">{subtitle}</p>}
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {actions && <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap w-full sm:w-auto">{actions}</div>}
     </div>
   );
 }
@@ -18,22 +18,22 @@ export function StatCard({ label, value, hint, icon: Icon, gradient = "primary",
     info: "bg-gradient-info",
   }[gradient];
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-card border border-border shadow-card p-5 transition-smooth hover:shadow-elegant hover:-translate-y-0.5">
+    <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-card border border-border shadow-card p-4 sm:p-5 transition-smooth hover:shadow-elegant hover:-translate-y-0.5 min-w-0">
       <div className={`absolute -top-8 -right-8 h-28 w-28 rounded-full opacity-20 blur-2xl ${grad}`} />
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>
-          <div className="mt-2 text-2xl md:text-3xl font-bold text-foreground">{value}</div>
-          {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground truncate">{label}</div>
+          <div className="mt-1 sm:mt-2 text-xl sm:text-2xl md:text-3xl font-bold text-foreground truncate">{value}</div>
+          {hint && <div className="mt-0.5 sm:mt-1 text-xs text-muted-foreground truncate">{hint}</div>}
         </div>
         {Icon && (
-          <div className={`h-11 w-11 rounded-xl ${grad} flex items-center justify-center text-primary-foreground shadow-glow`}>
-            <Icon className="h-5 w-5" />
+          <div className={`h-9 w-9 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl ${grad} flex items-center justify-center text-primary-foreground shadow-glow shrink-0`}>
+            <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
           </div>
         )}
       </div>
       {trend !== undefined && (
-        <div className={`mt-4 inline-flex items-center gap-1 text-xs font-semibold ${trend >= 0 ? "text-success" : "text-destructive"}`}>
+        <div className={`mt-3 sm:mt-4 inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold ${trend >= 0 ? "text-success" : "text-destructive"}`}>
           {trend >= 0 ? "▲" : "▼"} {Math.abs(trend)}% vs last month
         </div>
       )}
@@ -112,13 +112,14 @@ export function StatusBadge({ status }) {
 export function Button({ children, variant = "primary", size = "md", className = "", ...props }) {
   const variants = {
     primary: "bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-90",
+    success: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm hover:opacity-95",
+    danger: "bg-rose-600 hover:bg-rose-700 text-white shadow-sm hover:opacity-95",
     outline: "border border-border bg-card hover:bg-muted text-foreground",
     ghost: "hover:bg-muted text-foreground",
-    danger: "bg-destructive text-destructive-foreground hover:opacity-90",
   };
   const sizes = { sm: "h-8 px-3 text-xs", md: "h-10 px-4 text-sm", lg: "h-11 px-5 text-sm" };
   return (
-    <button className={`inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-smooth ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
+    <button className={`inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-smooth ${variants[variant] || ""} ${sizes[size]} ${className}`} {...props}>
       {children}
     </button>
   );

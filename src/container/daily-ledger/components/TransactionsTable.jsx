@@ -59,20 +59,20 @@ export function TransactionsTable({
   return (
     <Card padded={false} className="border-border shadow-card overflow-hidden">
       {/* Search & Filters */}
-      <div className="p-4 border-b border-border bg-card/60 space-y-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[200px]">
+      <div className="p-3 sm:p-4 border-b border-border bg-card/60 space-y-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="relative w-full sm:flex-1 min-w-[180px]">
             <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search by party, reference, particulars..."
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary w-full"
+              className="pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-lg text-xs sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary w-full"
             />
           </div>
 
-          <div className="w-44">
+          <div className="w-full sm:w-36 md:w-44">
             <SelectField
               name="typeFilter"
               size="sm"
@@ -88,7 +88,7 @@ export function TransactionsTable({
             />
           </div>
 
-          <div className="w-44">
+          <div className="w-full sm:w-36 md:w-44">
             <SelectField
               name="categoryFilter"
               size="sm"
@@ -103,7 +103,7 @@ export function TransactionsTable({
             />
           </div>
 
-          <div className="w-44">
+          <div className="w-full sm:w-36 md:w-44">
             <SelectField
               name="paymentMethodFilter"
               size="sm"
@@ -121,7 +121,7 @@ export function TransactionsTable({
             />
           </div>
 
-          <div className="w-52">
+          <div className="w-full sm:w-44 md:w-52">
             <SelectField
               name="orderingFilter"
               size="sm"
@@ -137,7 +137,7 @@ export function TransactionsTable({
             />
           </div>
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto sm:ml-auto flex-wrap sm:flex-nowrap">
             {onExportCsv && (
               <Button
                 variant="outline"
@@ -145,6 +145,7 @@ export function TransactionsTable({
                 onClick={onExportCsv}
                 disabled={isExporting || count === 0}
                 title="Download All Filtered Transactions as CSV"
+                className="text-xs py-1.5 px-2.5 flex-1 sm:flex-initial"
               >
                 <Download className="h-3.5 w-3.5 text-emerald-600" />
                 <span>CSV</span>
@@ -157,6 +158,7 @@ export function TransactionsTable({
                 onClick={onExportPdf}
                 disabled={isExporting || count === 0}
                 title="Download Filtered Transactions Report as PDF"
+                className="text-xs py-1.5 px-2.5 flex-1 sm:flex-initial"
               >
                 <FileText className="h-3.5 w-3.5 text-rose-600" />
                 <span>PDF</span>
@@ -169,6 +171,7 @@ export function TransactionsTable({
                 onClick={onPrint}
                 disabled={isExporting || count === 0}
                 title="Print Filtered Transactions Report"
+                className="text-xs py-1.5 px-2.5 flex-1 sm:flex-initial"
               >
                 <Printer className="h-3.5 w-3.5 text-primary" />
                 <span>Print</span>
@@ -363,8 +366,8 @@ export function TransactionsTable({
       </div>
 
       {/* Pagination */}
-      <div className="p-4 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground">
-        <div>
+      <div className="p-3 sm:p-4 border-t border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="text-center sm:text-left">
           Showing {transactions.length} of {count} transactions (Page {currentPage} of {totalPages || 1})
         </div>
         <div className="flex items-center gap-2">
@@ -373,6 +376,7 @@ export function TransactionsTable({
             size="sm"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage <= 1 || isLoading}
+            className="text-xs h-8 px-2.5"
           >
             <ChevronLeft className="h-3.5 w-3.5" /> Previous
           </Button>
@@ -381,6 +385,7 @@ export function TransactionsTable({
             size="sm"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage >= totalPages || isLoading}
+            className="text-xs h-8 px-2.5"
           >
             Next <ChevronRight className="h-3.5 w-3.5" />
           </Button>

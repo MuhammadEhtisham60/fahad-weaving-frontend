@@ -109,33 +109,35 @@ export function DailyLedgerModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-card border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-md bg-card border border-border rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh] sm:max-h-[90vh]">
         {/* Header */}
-        <div className="p-5 border-b border-border flex items-center justify-between bg-primary/10">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-md">
-              <DollarSign className="h-5 w-5" />
+        <div className="p-3.5 sm:p-5 border-b border-border flex items-center justify-between gap-2 bg-primary/10 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-md shrink-0">
+              <DollarSign className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <div>
-              <h2 className="text-lg font-bold text-foreground">
-                {isEdit ? "Edit Opening Balance" : "Set Initial Opening Balance"}
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-lg font-bold text-foreground truncate">
+                {isEdit ? "Edit Opening Balance" : "Set Opening Balance"}
               </h2>
-              <p className="text-xs text-muted-foreground">
-                Set starting capital & initial money for the ledger
+              <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
+                Starting capital & initial cash for ledger
               </p>
             </div>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            className="p-1 sm:p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors shrink-0"
+            title="Close modal"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
 
         {/* Body */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="p-3.5 sm:p-5 space-y-3 sm:space-y-4 overflow-y-auto flex-1">
           <InputField
             label="Ledger Date"
             type="date"
@@ -180,19 +182,19 @@ export function DailyLedgerModal({
           />
 
           {/* Footer */}
-          <div className="pt-4 border-t border-border flex items-center justify-end gap-2">
+          <div className="pt-3 sm:pt-4 border-t border-border flex items-center justify-end gap-2 flex-wrap sm:flex-nowrap">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2 rounded-xl border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+              className="px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl border border-border text-xs sm:text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors flex-1 sm:flex-initial"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-md transition-all flex items-center gap-2"
+              className="px-4 py-2 sm:px-5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-md transition-all flex items-center justify-center gap-1.5 sm:gap-2 flex-1 sm:flex-initial"
             >
               {isSubmitting ? (
                 <>
