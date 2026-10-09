@@ -948,3 +948,261 @@ export const printAllTransactions = ({ timelineLabel, summary, transactions }) =
 export const exportDailySheetPdf = downloadDailySheetPdf;
 export const exportAllTransactionsPdf = downloadAllTransactionsPdf;
 
+/**
+ * Generates and downloads a single transaction receipt/voucher as a clean, professional PDF
+ */
+export const downloadTransactionVoucherPdf = (transaction) => {
+  if (!transaction) return;
+
+  const doc = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4",
+  });
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const isIncoming =
+    transaction.transaction_type === "INCOMING" ||
+    transaction.transactionType === "INCOMING";
+  const amount = parseFloat(transaction.amount || 0);
+  const runningBal =
+    transaction.running_balance ?? transaction.runningBalance;
+  const trxId = transaction.id || "TRX";
+  const dateStr =
+    transaction.transaction_date ||
+    transaction.transactionDate ||
+    new Date().toISOString().split("T")[0];
+  const timeStr =
+    transaction.transaction_time ||
+    (transaction.created_at
+      ? new Date(transaction.created_at).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "—");
+  const party = transaction.party_name || transaction.partyName || "Counter / Cash";
+  const category = transaction.category || "General";
+  const paymentMethod =
+    transaction.payment_method || transaction.paymentMethod || "Cash";
+  const refNo =
+    transaction.reference_number || transaction.referenceNumber || "—";
+  const description = transaction.description || "—";
+  const notes = transaction.notes || "";
+  const createdBy = transaction.created_by_name || "System";
+  const createdAt = transaction.created_at
+    ? new Date(transaction.created_at).toLocaleString()
+    : new Date().toLocaleString();
+
+  // Header Banner Background (Navy #0c1f3f)
+  doc.setFillColor(12, 31, 63);
+  doc.roundedRect(14, 14, pageWidth - 28, 24, 2, 2, "F");
+
+  // Gold accent bar
+  doc.setFillColor(201, 162, 39);
+  doc.rect(14, 37, pageWidth - 28, 1.2, "F");
+
+  // Logo Badge
+  doc.setFillColor(201, 162, 39);
+  doc.roundedRect(18, 17.5, 17, 17, 2, 2, "F");
+  doc.setTextColor(12, 31, 63);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("FW", 23, 28.5);
+
+  // Brand Name & Subtitle
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.text("FAHAD WEAVING FACTORY", 39, 24.5);
+
+  doc.setFontSize(8);
+  doc.setTextColor(201, 162, 39);
+  doc.setFont("helvetica", "bold");
+  doc.text("OPERATIONAL DAILY LEDGER SUITE", 39, 31);
+
+  // Document Title (Right Aligned)
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.text(
+    isIncoming ? "INCOME RECEIPT VOUCHER" : "EXPENSE PAYMENT VOUCHER",
+    pageWidth - 18,
+    24,
+    { align: "right" }
+  );
+
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(220, 225, 235);
+  doc.text(`Voucher #: ${trxId}`, pageWidth - 18, 31, { align: "right" });
+
+  // ─── Main Amount Card ───────────────────────────────────────
+  const startY = 44;
+  if (isIncoming) {
+    doc.setFillColor(236, 253, 245); // light green
+    doc.setDrawColor(167, 243, 208);
+  } else {
+    doc.setFillColor(255, 251, 235); // light amber
+    doc.setDrawColor(253, 230, 138);
+  }
+  doc.setLineWidth(0.4);
+  doc.roundedRect(14, startY, pageWidth - 28, 26, 2, 2, "FD");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
+  if (isIncoming) {
+    doc.setTextColor(5, 150, 105);
+    doc.text("TOTAL CASH INFLOW / RECEIVED AMOUNT", 20, startY + 8);
+  } else {
+    doc.setTextColor(217, 119, 6);
+    doc.text("TOTAL CASH OUTFLOW / PAID AMOUNT", 20, startY + 8);
+  }
+
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+  if (isIncoming) {
+    doc.setTextColor(5, 150, 105);
+    doc.text(`+ PKR ${formatCurrency(amount)}`, 20, startY + 19);
+  } else {
+    doc.setTextColor(217, 119, 6);
+    doc.text(`- PKR ${formatCurrency(amount)}`, 20, startY + 19);
+  }
+
+  // Type Tag on right of amount card
+  doc.setFillColor(isIncoming ? 16 : 245, isIncoming ? 185 : 158, isIncoming ? 129 : 11);
+  doc.roundedRect(pageWidth - 62, startY + 7, 44, 11, 2, 2, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "bold");
+  doc.text(
+    isIncoming ? "CASH INFLOW" : "CASH OUTFLOW",
+    pageWidth - 40,
+    startY + 14.5,
+    { align: "center" }
+  );
+
+  // ─── Transaction Details Table ───────────────────────────────
+  const detailRows = [
+    ["Voucher #", String(trxId), "Date & Time", `${dateStr}  (${timeStr})`],
+    ["Transaction Type", isIncoming ? "Income (+)" : "Expense (-)", "Category", category],
+    ["Party / Counterpart", party, "Payment Method", paymentMethod],
+    ["Reference / Cheque #", refNo, "Created By", createdBy],
+  ];
+
+  autoTable(doc, {
+    startY: startY + 31,
+    margin: { left: 14, right: 14 },
+    body: detailRows,
+    theme: "grid",
+    styles: {
+      fontSize: 8.5,
+      cellPadding: 3,
+      font: "helvetica",
+      textColor: [15, 23, 42],
+      lineColor: [226, 232, 240],
+      lineWidth: 0.2,
+    },
+    columnStyles: {
+      0: { fontStyle: "bold", fillColor: [248, 250, 252], cellWidth: 38, textColor: [71, 85, 105] },
+      1: { cellWidth: 53 },
+      2: { fontStyle: "bold", fillColor: [248, 250, 252], cellWidth: 38, textColor: [71, 85, 105] },
+      3: { cellWidth: 53 },
+    },
+  });
+
+  let currentY = doc.lastAutoTable.finalY + 6;
+
+  // ─── Description / Particulars Section ───────────────────────
+  const descRows = [
+    ["Description / Particulars", description],
+  ];
+  if (notes) {
+    descRows.push(["Internal Notes", notes]);
+  }
+
+  autoTable(doc, {
+    startY: currentY,
+    margin: { left: 14, right: 14 },
+    body: descRows,
+    theme: "grid",
+    styles: {
+      fontSize: 8.5,
+      cellPadding: 3,
+      font: "helvetica",
+      textColor: [15, 23, 42],
+      lineColor: [226, 232, 240],
+      lineWidth: 0.2,
+    },
+    columnStyles: {
+      0: { fontStyle: "bold", fillColor: [248, 250, 252], cellWidth: 38, textColor: [71, 85, 105] },
+      1: { cellWidth: 144 },
+    },
+  });
+
+  currentY = doc.lastAutoTable.finalY + 6;
+
+  // ─── Running Balance Box (if available) ──────────────────────
+  if (runningBal !== undefined && runningBal !== null) {
+    doc.setFillColor(245, 243, 255);
+    doc.setDrawColor(221, 214, 254);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(14, currentY, pageWidth - 28, 12, 1.5, 1.5, "FD");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(67, 56, 202);
+    doc.text("Running Account Balance After Transaction:", 20, currentY + 7.5);
+
+    doc.setFontSize(9.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text(
+      `PKR ${formatCurrency(parseFloat(runningBal))}`,
+      pageWidth - 20,
+      currentY + 7.5,
+      { align: "right" }
+    );
+
+    currentY += 18;
+  } else {
+    currentY += 8;
+  }
+
+  // ─── Signatures Section ─────────────────────────────────────
+  const sigBoxY = Math.max(currentY + 10, 190);
+  const colWidth = (pageWidth - 28 - 20) / 3;
+
+  const signatures = ["Prepared By", "Verified / Manager", "Receiver / Party Signature"];
+  signatures.forEach((sig, idx) => {
+    const sigX = 14 + idx * (colWidth + 10);
+    doc.setDrawColor(148, 163, 184);
+    doc.setLineWidth(0.3);
+    doc.line(sigX, sigBoxY + 20, sigX + colWidth, sigBoxY + 20);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text(sig, sigX + colWidth / 2, sigBoxY + 25, { align: "center" });
+  });
+
+  // ─── Footer ────────────────────────────────────────────────
+  doc.setFontSize(7);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(148, 163, 184);
+  doc.text(
+    "Fahad Weaving Factory Management Suite • Official Operational Voucher",
+    14,
+    doc.internal.pageSize.getHeight() - 10
+  );
+  doc.text(
+    `Exported: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} • Generated: ${createdAt}`,
+    pageWidth - 14,
+    doc.internal.pageSize.getHeight() - 10,
+    { align: "right" }
+  );
+
+  const safeType = isIncoming ? "income" : "expense";
+  const filename = `voucher-${safeType}-${trxId}-${dateStr}.pdf`;
+  doc.save(filename);
+};
+
+

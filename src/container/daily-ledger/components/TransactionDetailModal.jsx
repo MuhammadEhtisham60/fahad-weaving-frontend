@@ -3,7 +3,7 @@ import {
   X,
   ArrowDownLeft,
   ArrowUpRight,
-  Printer,
+  Download,
   Calendar,
   Clock,
   User,
@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button, StatusBadge, pkr } from "../../../components/ui-kit.jsx";
 import { formatTransactionTime } from "./DailySheetView.jsx";
+import { downloadTransactionVoucherPdf } from "../utils/ledgerExport.js";
 
 export function TransactionDetailModal({
   open,
@@ -28,8 +29,8 @@ export function TransactionDetailModal({
   const amount = parseFloat(transaction.amount || 0);
   const runningBal = transaction.running_balance ?? transaction.runningBalance;
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownload = () => {
+    downloadTransactionVoucherPdf(transaction);
   };
 
   return (
@@ -66,7 +67,7 @@ export function TransactionDetailModal({
                       : "bg-warning/20 text-warning-foreground"
                   }`}
                 >
-                  {isIncoming ? "Income Voucher" : "Expense Voucher"}
+                  {isIncoming ? "Income Receipt" : "Expense Receipt"}
                 </span>
                 <span className="text-[10px] sm:text-xs text-muted-foreground truncate">
                   #{transaction.id || "TRX"}
@@ -180,8 +181,14 @@ export function TransactionDetailModal({
 
         {/* Footer Actions */}
         <div className="p-3 sm:p-4 border-t border-border bg-muted/20 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
-          <Button variant="outline" size="sm" onClick={handlePrint} className="text-xs py-1.5 px-2.5 flex-1 sm:flex-initial">
-            <Printer className="h-3.5 w-3.5 mr-1" /> Print Voucher
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleDownload}
+            className="text-xs py-1.5 px-3 flex-1 sm:flex-initial"
+            title="Download Voucher PDF directly"
+          >
+            <Download className="h-3.5 w-3.5 mr-1.5" /> Download
           </Button>
           <div className="flex items-center gap-2 flex-1 sm:flex-initial justify-end">
             {onEdit && (
